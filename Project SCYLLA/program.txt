@@ -1,0 +1,4 @@
+File "e:\Project SCYLLA\.scylla\lib\site-packages\db\__init__.py", line 69
+    print "var", var
+
+sqlalchemy.orm.exc.UnmappedInstanceError: Class &#39;builtins.dict&#39; is not mapped

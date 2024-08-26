@@ -1,0 +1,51 @@
+from flask import Flask,request
+
+app=Flask(__name__)
+
+users=[
+    {
+            "username":"kfoo1",
+            "lastName":"maingi",
+            "phoneNumber":"0708909098",
+            "nationalID":"90809980",
+            "DateOfbirth":"09/03/2020",
+            "joined_date":"12/2/2102",
+            "nextofkin":"isaac"
+          
+    }
+]
+@app.get("/applications/user")
+def get_users():
+    return {"users":users}
+#adding a nesw user
+@app.route("/applications/user" ,methods=['POST'])
+def process_data():
+    request_data=request.get_json()
+    new_user={"username":request_data["username"],
+    "lastName":request_data["lastName"],
+    "phoneNumber":request_data["phoneNumber"],
+    "nationalID":request_data["nationalID"],
+    "DateOFbirth":request_data["DateOFbirth"],
+    "joined_date":request_data["joined_date"],
+    "nextofkin":request_data["nextofkin"]
+    }
+    users.append(new_user)
+    return new_user,201
+#get one user uing the username
+@app.route("/applications/user/<string:username>" ,methods=["GET"])
+def get_user(username):
+    request_data=request.get_json()
+    for user in users:
+        if user["username"]==username:
+            return users
+    return {"message":"user not found"},404
+
+#update a user information
+@app.route("/applications/<string:userrname>/username" ,methods=["PUT"])
+def update_user(username):
+    request_data=request.get_json()
+    
+            
+
+if __name__=="__main__":
+    app.run(debug=True)
